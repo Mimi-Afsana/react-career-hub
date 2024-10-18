@@ -5,7 +5,24 @@ import { getStoredJobApplication } from "../utility/LocalStorage";
 const AppliedJobs = () => {
     const jobs = useLoaderData()
     const [appliedJobs, setAppliedJobs] = useState([])
+    const [displayJobs, setDisplayJobs] = useState([])
     // console.log(jobs)
+
+    const handleJobFilter = (lilter) => {
+        if (lilter === 'all') {
+            setDisplayJobs(appliedJobs);
+        }
+
+        else if (lilter === 'remote') {
+            const remoteJobs = appliedJobs.filter(job => job.remote_or_onsite === 'Remote')
+            setDisplayJobs(remoteJobs)
+        }
+        else if (lilter === 'onsite') {
+            const onsiteJobs = appliedJobs.filter(job => job.remote_or_onsite === 'Onsite')
+            setDisplayJobs(onsiteJobs)
+        }
+
+    }
     useEffect(() => {
         const storeJobsIds = getStoredJobApplication()
 
@@ -18,9 +35,10 @@ const AppliedJobs = () => {
                 }
             }
             setAppliedJobs(jobApplied)
+            setDisplayJobs(jobApplied)
         }
 
-    }, [])
+    }, [jobs])
     return (
 
         <div>
@@ -28,16 +46,16 @@ const AppliedJobs = () => {
             <details className="dropdown">
                 <summary className="btn m-1">open or close</summary>
                 <ul className="menu dropdown-content bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
-                    <li><a>All</a></li>
-                    <li><a>Remote</a></li>
-                    <li><a>Onsite</a></li>
+                    <li onClick={() => handleJobFilter('all')}><a>All</a></li>
+                    <li onClick={() => handleJobFilter('remote')}><a>Remote</a></li>
+                    <li onClick={() => handleJobFilter('onsite')}><a>Onsite</a></li>
                 </ul>
             </details>
             <ul>
                 {
-                    appliedJobs.map(job => <li key='job.id'>
+                    displayJobs.map(job => <li key='job.id'>
                         <span>{job.job_title}</span> <br />
-                    <span>{job.company_name}: {job.remote_or_onsite}</span>
+                        <span>{job.company_name}: {job.remote_or_onsite}</span>
                     </li>)
                 }
             </ul>
