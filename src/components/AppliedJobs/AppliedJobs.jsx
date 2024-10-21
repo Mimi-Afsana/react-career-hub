@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import { getStoredJobApplication } from "../utility/LocalStorage";
+import { Helmet } from "react-helmet-async";
 
 const AppliedJobs = () => {
     const jobs = useLoaderData()
@@ -42,6 +43,7 @@ const AppliedJobs = () => {
     return (
 
         <div>
+            <Helmet><title>Career Hub | Applied Jobs</title></Helmet>
             <h3>{appliedJobs.length}</h3>
             <details className="dropdown">
                 <summary className="btn m-1">open or close</summary>

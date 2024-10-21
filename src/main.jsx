@@ -13,6 +13,11 @@ import AppliedJobs from "./components/AppliedJobs/AppliedJobs";
 import Jobs from "./components/Jobs/Jobs";
 import ErrorPage from "./components/ErrorPage/ErrorPage";
 import JobDetails from "./components/JonDetails/JobDetails";
+import { HelmetProvider } from "react-helmet-async";
+import Login from "./components/Login/Login";
+import SignUp from "./components/SignUp/SignUp";
+import AuthProvider from "./providers/AuthProvider";
+import PrivateRoute from "./components/routes/PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -25,8 +30,16 @@ const router = createBrowserRouter([
         element: <Home></Home>,
       },
       {
+        path: "/login",
+        element: <Login></Login>,
+      },
+      {
+        path: "/signup",
+        element: <SignUp></SignUp>,
+      },
+      {
         path: "/applied",
-        element: <AppliedJobs></AppliedJobs>,
+        element: <PrivateRoute><AppliedJobs></AppliedJobs></PrivateRoute>,
         loader: () => fetch('/jobs.json')
       },
       {
@@ -46,6 +59,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <HelmetProvider>
+      <AuthProvider><RouterProvider router={router} /></AuthProvider>
+    </HelmetProvider>
   </React.StrictMode>
 )
