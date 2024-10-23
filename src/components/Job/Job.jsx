@@ -12,8 +12,8 @@ const Job = ({ job }) => {
     return (
         <div>
             <Helmet><title>Career Hub | Job details</title></Helmet>
-            <div className="card card-compact bg-base-100 shadow-xl">
-                <figure>
+            <div className="card-compact bg-base-100 border border-blue-100 rounded-md px-8 pt-8 py-4">
+                <figure className="pl-4">
                     <img
                         src={logo}
                         alt="Jobs" />
@@ -33,7 +33,7 @@ const Job = ({ job }) => {
 
                     <div className="card-actions">
                         <Link to={`/job/${id}`}>
-                            <button className="btn btn-primary">View Details</button>
+                            <button className="btn bg-violet-500 text-white">View Details</button>
                         </Link>
                     </div>
                 </div>
