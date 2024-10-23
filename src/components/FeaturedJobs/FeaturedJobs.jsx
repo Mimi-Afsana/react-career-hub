@@ -12,7 +12,7 @@ const FeaturedJobs = () => {
     }, [])
 
     return (
-        <div>
+        <div className="max-w-6xl mx-auto">
             <div className="text-center">
                 <h1>{dataLength.length}</h1>
                 <h2 className="text-5xl">Featured Jobs</h2>
