@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import { getStoredJobApplication } from "../utility/LocalStorage";
 import { Helmet } from "react-helmet-async";
+import Jobs from "../Jobs/Jobs";
 
 const AppliedJobs = () => {
     const jobs = useLoaderData()
@@ -44,7 +45,21 @@ const AppliedJobs = () => {
 
         <div>
             <Helmet><title>Career Hub | Applied Jobs</title></Helmet>
-            <h3>{appliedJobs.length}</h3>
+            <div className="bg-violet-50 ">
+                <div
+                    className="h-52	"
+                    style={{
+                        backgroundImage: "url(../../assets/images/bg1.png)",
+                        backgroundRepeat: "no-repeat",
+                    }}>
+                    <div className="back"></div>
+                    <div className="hero-content  text-center ml-0 lg:ml-32">
+                        <div className="max-w-lg">
+                            <h1 className="mb-5 text-5xl font-bold mt-6">Applied Jobs</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <details className="dropdown">
                 <summary className="btn m-1">open or close</summary>
                 <ul className="menu dropdown-content bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
@@ -55,10 +70,9 @@ const AppliedJobs = () => {
             </details>
             <ul>
                 {
-                    displayJobs.map(job => <li key='job.id'>
-                        <span>{job.job_title}</span> <br />
-                        <span>{job.company_name}: {job.remote_or_onsite}</span>
-                    </li>)
+                    displayJobs.map(job => <Jobs key={job.id} job={job}>
+
+                    </Jobs>)
                 }
             </ul>
         </div>
