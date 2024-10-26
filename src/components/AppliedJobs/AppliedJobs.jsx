@@ -60,14 +60,16 @@ const AppliedJobs = () => {
                     </div>
                 </div>
             </div>
-            <details className="dropdown">
-                <summary className="btn m-1">open or close</summary>
-                <ul className="menu dropdown-content bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
-                    <li onClick={() => handleJobFilter('all')}><a>All</a></li>
-                    <li onClick={() => handleJobFilter('remote')}><a>Remote</a></li>
-                    <li onClick={() => handleJobFilter('onsite')}><a>Onsite</a></li>
-                </ul>
-            </details>
+            <div className="my-6 max-w-6xl mx-auto">
+                <details className="dropdown ">
+                    <summary className="btn m-1 btn bg-violet-500 text-white">open or close</summary>
+                    <ul className="menu dropdown-content bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+                        <li onClick={() => handleJobFilter('all')}><a>All</a></li>
+                        <li onClick={() => handleJobFilter('remote')}><a>Remote</a></li>
+                        <li onClick={() => handleJobFilter('onsite')}><a>Onsite</a></li>
+                    </ul>
+                </details>
+            </div>
             <ul>
                 {
                     displayJobs.map(job => <Jobs key={job.id} job={job}>

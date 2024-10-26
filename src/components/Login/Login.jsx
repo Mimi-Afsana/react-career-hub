@@ -1,8 +1,10 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 
 const Login = () => {
+    const [registerError, setRegisterError] = useState('')
+    const [success, setSuccess] = useState('')
     const { signIn } = useContext(AuthContext)
     const navigate = useNavigate()
     const location = useLocation();
@@ -21,11 +23,13 @@ const Login = () => {
         signIn(email, password)
             .then(result => {
                 console.log(result.user)
+                setSuccess('User Login Successfully')
                 // navigate after login
                 navigate(location?.state ? location.state : '/')
             })
             .catch(error => {
                 console.log(error)
+                setRegisterError(error.message)
             })
     }
     return (
@@ -49,10 +53,20 @@ const Login = () => {
                         </label>
                     </div>
                     <div className="form-control mt-6">
-                        <button className="btn btn-primary">Login</button>
+                        <button className="btn bg-violet-500 text-white">Login</button>
                     </div>
                 </form>
-                <p className="text-center">Do not have an account <Link className="text-blue-600 font-bold" to='/signup'>Register</Link></p>
+                {
+                    registerError && <p className="text-red-600 text-center">
+                        {registerError}
+                    </p>
+                }
+                {
+                    success && <p className="text-green-600">
+                        {success}
+                    </p>
+                }
+                <p className="text-center  mb-6">Do not have an account <Link className="text-blue-600 font-bold" to='/signup'>Register</Link></p>
             </div>
         </div>
     );

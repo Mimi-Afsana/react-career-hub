@@ -8,9 +8,9 @@ const Jobs = ({ job }) => {
 
     return (
         <div className="max-w-6xl mx-auto">
-            <div className=" border border-blue-500 rounded pl-4 mb-6 p-4">
-                <div className="flex justify-center items-center gap-16 flex-col lg:flex-row ">
-                    <div className="w-64 mx-auto bg-red-700 h-48 flex justify-center items-center rounded p-6">
+            <div className=" border border-blue-100 rounded pl-4 mb-6 p-4 mx-2">
+                <div className="flex justify-center items-center  gap-6 lg:gap-16 flex-col lg:flex-row ">
+                    <div className="w-60 mx-auto bg-red-700 h-48 flex justify-center items-center rounded p-6">
                         <img
                             src={logo}
                             className="rounded-lg " />
@@ -33,7 +33,7 @@ const Jobs = ({ job }) => {
 
                         </div>
 
-                        <Link to={`/job/${id}`} className="flex items-center justify-center lg:pr-16">
+                        <Link to={`/job/${id}`} className="flex items-center justify-center lg:pr-16 mt-4 lg:mt-0">
                             <button className="btn bg-violet-500 text-white">View Details</button>
                         </Link>
 
