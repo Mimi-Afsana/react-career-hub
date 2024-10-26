@@ -11,7 +11,7 @@ const Job = ({ job }) => {
 
     return (
         <div>
-            <Helmet><title>Career Hub | Job details</title></Helmet>
+
             <div className="card-compact bg-base-100 border border-blue-100 rounded-md px-8 pt-8 py-4">
                 <figure className="pl-4">
                     <img

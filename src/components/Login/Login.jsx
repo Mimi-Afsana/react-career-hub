@@ -1,14 +1,21 @@
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
+import { getAuth, sendPasswordResetEmail } from "firebase/auth";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { Helmet } from "react-helmet-async";
 
 const Login = () => {
     const [registerError, setRegisterError] = useState('')
     const [success, setSuccess] = useState('')
+    const [showPassword, setShowPassword] = useState(false)
+
     const { signIn } = useContext(AuthContext)
     const navigate = useNavigate()
     const location = useLocation();
     console.log('location in the login page', location)
+    const emailRef = useRef(null)
+    const auth = getAuth()
 
     const handleLogin = e => {
         e.preventDefault()
@@ -32,8 +39,32 @@ const Login = () => {
                 setRegisterError(error.message)
             })
     }
+
+    const handleForgotPassword = () => {
+        const email = emailRef.current.value
+        if (!email) {
+            console.log('please provide an email', emailRef.current.value)
+            return
+        }
+        else if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) {
+            console.log('please write a valid email')
+            return
+        }
+        console.log('forget password')
+
+        // send validation email
+        sendPasswordResetEmail(auth, email)
+            .then(() => {
+                alert('Please check your email')
+            })
+            .catch(error => {
+                console.log(error)
+            })
+
+    }
     return (
         <div>
+            <Helmet><title>Career Hub | Login</title></Helmet>
             <div>
                 <h2 className="text-3xl my-10 text-center">Please Login</h2>
                 <form onSubmit={handleLogin} className="card-body lg:w-1/2 md:w-3/4 mx-auto">
@@ -41,15 +72,30 @@ const Login = () => {
                         <label className="label">
                             <span className="label-text">Email</span>
                         </label>
-                        <input type="email" name="email" placeholder="email" className="input input-bordered" required />
+                        <input type="email" name="email" placeholder="email" className="input input-bordered" ref={emailRef} required />
                     </div>
-                    <div className="form-control">
+                    <div className="form-control relative">
                         <label className="label">
                             <span className="label-text">Password</span>
                         </label>
-                        <input type="password" name="password" placeholder="password" className="input input-bordered" required />
+                        <div className="relative">
+                            <input
+                                type={showPassword ? "text" : "password"}
+                                name="password"
+                                placeholder="password"
+                                className="input input-bordered pr-10 w-full" // Add right padding to make space for the icon
+                                required
+                            />
+
+                            <span
+                                className="absolute inset-y-0 right-3 flex items-center cursor-pointer"
+                                onClick={() => setShowPassword(!showPassword)}
+                            >
+                                {showPassword ? <FaEyeSlash /> : <FaEye />}
+                            </span>
+                        </div>
                         <label className="label">
-                            <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
+                            <a onClick={handleForgotPassword} href="#" className="label-text-alt link link-hover">Forgot password?</a>
                         </label>
                     </div>
                     <div className="form-control mt-6">

@@ -1,10 +1,15 @@
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
+import { FaEyeSlash } from "react-icons/fa";
+import { FaEye } from "react-icons/fa";
+import { Helmet } from "react-helmet-async";
+
 
 const SignUp = () => {
     const [registerError, setRegisterError] = useState('')
     const [success, setSuccess] = useState('')
+    const [showPassword, setShowPassword] = useState(false)
     const navigate = useNavigate()
     const { createUser } = useContext(AuthContext)
     const handleRegister = e => {
@@ -12,10 +17,19 @@ const SignUp = () => {
         console.log(e.currentTarget)
         const form = new FormData(e.currentTarget)
         const name = form.get('name')
-
         const email = form.get('email')
         const password = form.get('password')
         console.log(name, email, password)
+
+        setRegisterError('')
+        setSuccess('')
+
+        if (password.length < 6) {
+            setRegisterError('Password should be at least 6 character or longer')
+            return
+        }
+
+
 
         // createUser
         createUser(email, password)
@@ -34,6 +48,7 @@ const SignUp = () => {
 
     return (
         <div>
+            <Helmet><title>Career Hub | Register</title></Helmet>
             <div>
                 <h2 className="text-3xl my-10 text-center">Please Register</h2>
                 <form onSubmit={handleRegister} className="card-body lg:w-1/2 md:w-3/4 mx-auto">
@@ -50,12 +65,28 @@ const SignUp = () => {
                         </label>
                         <input type="email" name="email" placeholder="email" className="input input-bordered" required />
                     </div>
-                    <div className="form-control">
+                    <div className="form-control relative">
                         <label className="label">
                             <span className="label-text">Password</span>
                         </label>
-                        <input type="password" name="password" placeholder="password" className="input input-bordered" required />
+                        <div className="relative">
+                            <input
+                                type={showPassword ? "text" : "password"}
+                                name="password"
+                                placeholder="password"
+                                className="input input-bordered pr-10 w-full" // Add right padding to make space for the icon
+                                required
+                            />
+
+                            <span
+                                className="absolute inset-y-0 right-3 flex items-center cursor-pointer"
+                                onClick={() => setShowPassword(!showPassword)}
+                            >
+                                {showPassword ? <FaEyeSlash /> : <FaEye />}
+                            </span>
+                        </div>
                     </div>
+
                     <div className="form-control mt-6">
                         <button className="btn bg-violet-500 text-white">Register</button>
                     </div>
