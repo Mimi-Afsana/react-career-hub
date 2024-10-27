@@ -10,7 +10,7 @@ const Jobs = ({ job }) => {
         <div className="max-w-6xl mx-auto">
             <div className=" border border-blue-100 rounded pl-4 mb-6 p-4 mx-2">
                 <div className="flex justify-center items-center  gap-6 lg:gap-16 flex-col lg:flex-row ">
-                    <div className="w-60 mx-auto bg-red-700 h-48 flex justify-center items-center rounded p-6">
+                    <div className="w-60 mx-auto bg-slate-100 h-48 flex justify-center items-center rounded p-6">
                         <img
                             src={logo}
                             className="rounded-lg " />

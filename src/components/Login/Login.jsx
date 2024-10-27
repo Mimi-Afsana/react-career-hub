@@ -30,9 +30,16 @@ const Login = () => {
         signIn(email, password)
             .then(result => {
                 console.log(result.user)
-                setSuccess('User Login Successfully')
-                // navigate after login
-                navigate(location?.state ? location.state : '/')
+                if (result.user.emailVerified) {
+                    setSuccess('User Login Successfully')
+                    // navigate after login
+                    navigate(location?.state ? location.state : '/')
+                }
+                else{
+                    alert('Please verify your email address')
+                }
+
+
             })
             .catch(error => {
                 console.log(error)
@@ -98,6 +105,8 @@ const Login = () => {
                             <a onClick={handleForgotPassword} href="#" className="label-text-alt link link-hover">Forgot password?</a>
                         </label>
                     </div>
+
+
                     <div className="form-control mt-6">
                         <button className="btn bg-violet-500 text-white">Login</button>
                     </div>
@@ -112,7 +121,7 @@ const Login = () => {
                         {success}
                     </p>
                 }
-                <p className="text-center  mb-6">Do not have an account <Link className="text-blue-600 font-bold" to='/signup'>Register</Link></p>
+                <p className="text-center  mb-6">Do not have an account? <Link className="text-blue-600 font-bold" to='/signup'>Register</Link></p>
             </div>
         </div>
     );

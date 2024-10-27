@@ -5,6 +5,7 @@ import { AuthContext } from "../../providers/AuthProvider";
 const Header = () => {
     const { user, logOut } = useContext(AuthContext)
 
+
     const handleSignOut = () => {
         logOut()
             .then()
@@ -54,7 +55,10 @@ const Header = () => {
             </li>
             {
                 user ?
-                    <button onClick={handleSignOut} className="btn">SignOut</button>
+                    <div>
+                        <button onClick={handleSignOut} className="btn">SignOut</button>
+                        <span className="pl-2">{user?.displayName}</span>
+                    </div>
                     :
                     <li>
                         <NavLink

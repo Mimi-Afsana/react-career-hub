@@ -8,6 +8,7 @@ import { HiOutlineOfficeBuilding } from "react-icons/hi";
 import { FaPhoneAlt } from "react-icons/fa";
 import { MdOutlineMail } from "react-icons/md";
 import { FaRegAddressCard } from "react-icons/fa";
+import { Helmet } from "react-helmet-async";
 
 
 
@@ -26,6 +27,7 @@ const JobDetails = () => {
 
     return (
         <div className="">
+            <Helmet><title>Career Hub | Job Details</title></Helmet>
             <div className="bg-violet-50 ">
                 <div
                     className="h-52	"
