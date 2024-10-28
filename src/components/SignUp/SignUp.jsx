@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 import { FaEyeSlash } from "react-icons/fa";
 import { FaEye } from "react-icons/fa";
@@ -14,10 +14,13 @@ const SignUp = () => {
     const [showPassword, setShowPassword] = useState(false)
     const [user, setUser] = useState('');
     const navigate = useNavigate()
+    const location = useLocation()
 
     const { signInWithGoogle } = useContext(AuthContext)
 
 
+
+    // Google signup
     const handleGoogleSignup = () => {
         console.log('google is here')
         signInWithGoogle()
@@ -149,7 +152,7 @@ const SignUp = () => {
                     </div>
 
                 </form>
-                <div className="form-control w-32 mx-auto">
+                <div className="form-control w-32 mx-auto mb-3">
                     <button onClick={handleGoogleSignup} className="btn bg-violet-200">Google SignIn</button>
                 </div>
 

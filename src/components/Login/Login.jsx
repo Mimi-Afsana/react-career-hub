@@ -10,12 +10,31 @@ const Login = () => {
     const [success, setSuccess] = useState('')
     const [showPassword, setShowPassword] = useState(false)
 
+    const { signInWithGoogle } = useContext(AuthContext)
+
+
     const { signIn } = useContext(AuthContext)
     const navigate = useNavigate()
     const location = useLocation();
     console.log('location in the login page', location)
     const emailRef = useRef(null)
     const auth = getAuth()
+
+
+    const handleGoogleSignup = () => {
+        console.log('google is here')
+        signInWithGoogle()
+            .then(result => {
+                const user = result.user
+                console.log(user)
+
+            })
+            .catch(error => {
+                console.log('error', error.message)
+            })
+        navigate(location?.state ? location.state : '/')
+    }
+
 
     const handleLogin = e => {
         e.preventDefault()
@@ -35,7 +54,7 @@ const Login = () => {
                     // navigate after login
                     navigate(location?.state ? location.state : '/')
                 }
-                else{
+                else {
                     alert('Please verify your email address')
                 }
 
@@ -111,6 +130,9 @@ const Login = () => {
                         <button className="btn bg-violet-500 text-white">Login</button>
                     </div>
                 </form>
+                <div className="form-control w-32 mx-auto mb-3">
+                    <button onClick={handleGoogleSignup} className="btn bg-violet-200">Google SignIn</button>
+                </div>
                 {
                     registerError && <p className="text-red-600 text-center">
                         {registerError}
