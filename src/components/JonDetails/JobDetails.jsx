@@ -70,7 +70,7 @@ const JobDetails = () => {
 
                     </div>
                     <div className="mt-2 mx-4 lg:mx-0">
-                        <button onClick={handleApplyJob} className="btn btn bg-violet-500 text-white w-full ">Apply Now</button>
+                        <button onClick={handleApplyJob} className="btn bg-violet-500 text-white w-full ">Apply Now</button>
                     </div>
                 </div>
             </div>

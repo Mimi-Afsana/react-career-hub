@@ -1,7 +1,8 @@
-import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { IoLocationOutline } from "react-icons/io5";
 import { HiOutlineCurrencyDollar } from "react-icons/hi";
+import PropTypes from "prop-types";  // Import PropTypes
+
 
 const Jobs = ({ job }) => {
     const { id, logo, job_title, company_name, remote_or_onsite, location, job_type, salary } = job;
@@ -43,5 +44,20 @@ const Jobs = ({ job }) => {
         </div>
     );
 };
+
+// Define the propTypes for Job component
+Jobs.propTypes = {
+    job: PropTypes.shape({
+        id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,  // id could be a string or a number
+        logo: PropTypes.string.isRequired,  // logo should be a string (URL)
+        job_title: PropTypes.string.isRequired,  // job_title should be a string
+        company_name: PropTypes.string.isRequired,  // company_name should be a string
+        remote_or_onsite: PropTypes.string.isRequired,  // remote_or_onsite should be a string
+        location: PropTypes.string.isRequired,  // location should be a string
+        job_type: PropTypes.string.isRequired,  // job_type should be a string
+        salary: PropTypes.string.isRequired,  // salary should be a string
+    }).isRequired,  // job object is required
+};
+
 
 export default Jobs;
